@@ -537,21 +537,57 @@ name: transportation
 
 The Roy model (1951) says as a worker you should do the thing that you have the highest comparative advantage in.
 
-If you live on an fishing island, the cost of travel prevents you from becoming a banker.
+If you live on an fishing island, the cost of travel prevents you from becoming a banker. If you live in London, you can take the tube.
 
-```{r, out.width="60%"}
+```{r, out.width="50%"}
 include_graphics("images/simple-sorting-3.PNG")
 ```
 
 ---
 # Transportation technology
 
-### How many jobs can you take the tube to in London?
+### Stockholm was reimainged in the second half of the 20th century
 
-Interesting economic questions is when the subway was built - did it enable people to commute to more jobs - different jobs - better jobs. To start we can ask - how did the subway allow people to work at different places.
+The city adopted modernist architectural ideals:
+
+* Separating work from home
+
+* Destroying housing in the city centre
+
+* Building highways and expanding the metro to enable commuting
+
+Interesting economic questions about when the transport infrastructure was built:
+
+* Did it enable people to commute to more jobs - different jobs - better jobs?
+
+---
+
+# Transportation technology
+
+### How to answer these questions with individual level data?
+
+.pull-left[
+
+The Stockholm city archive have mantalslängder that record:
+
+* Name, 
+* Occupational title, 
+* Home address and 
+* workplace name
 
 
-Mantalslängder has got name, occupational title, home address and work address. So what I need to do is to digitize these - extract the information into a computer readable form
+]
+
+.pull-right[
+
+
+
+]
+
+
+. So what I need to do is to digitize these - extract the information into a computer readable form.
+
+
 
 ---
 # Methods
