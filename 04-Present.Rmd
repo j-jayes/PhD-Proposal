@@ -1,0 +1,472 @@
+---
+title: "Idea seminar"
+subtitle: "Technological change and labour market response in Sweden"
+author: "Jonathan Jayes"
+date: "Lund University | [EHEH001](https://interludeone.com/) `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    seal: true
+    css: [default, metropolis, metropolis-fonts]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%"
+# This section will knit your Rmarkdown file to the root directory to easily deploy to Github Pages
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_file = paste0(
+        here::here(), '/index.html'
+      ),
+      envir = globalenv()
+    )
+  })
+---
+
+class: center, inverse
+
+
+```{r, echo=F, message=F, warning=F}
+
+# options(htmltools.dir.version = FALSE)
+library(knitr)
+
+opts_chunk$set(
+  fig.align="center",  
+  fig.height=4, 
+  # dev = "svg",
+  #fig.width=6,
+  # out.width="748px", #out.length="520.75px",
+  # dpi=300, #fig.path='Figs/',
+  cache=T, echo=F, warning=F, message=F
+)
+
+
+library(hrbrthemes)
+library(fontawesome)
+
+library(xaringan)
+library(xaringanExtra)
+library(tidyverse)
+library(here)
+library(xaringanthemer)
+
+xaringanExtra::use_progress_bar(color = "#EB821D", location = "top", height = "5px")
+xaringanExtra::use_panelset()
+```
+
+```{r, out.width="70%"}
+knitr::include_graphics(here::here("images", "granny-duck-crop.jpg"))
+```
+
+
+---
+
+# Trendy topic
+
+### The future of work!
+
+Artificial Intelligence, Automation, Augmented Reality and other buzzwords...
+
+.panelset[
+.panel[.panel-name[Serious automation risk]
+
+```{r, out.width="60%"}
+knitr::include_graphics(here("images", "exposure_risk.png"))
+```
+
+]
+
+.panel[.panel-name[Meme off shoring risk]
+
+```{r, out.width="60%"}
+knitr::include_graphics(here("images", "IMG_0394.PNG"))
+```
+
+]]
+
+---
+
+# Trendy topic
+### How can we think more clearly about the future of work?
+
+.pull-left[
+Look to the past:
+How have people responded to technological change?? 
+
+* Swing riots
+* Luddites.
+* Trade Adjustment Assistance in the US
+
+]
+
+.pull-right[
+
+```{r, out.width="60%"}
+knitr::include_graphics(here("images", "luddites.jpg"))
+```
+
+
+]
+---
+# My topic
+### How do people respond to technological change of different types?
+
+.pull-left[
+
+1. Electricity (two papers!)
+
+2. Transportation technology
+
+3. Urban design
+
+]
+
+.pull-right[
+
+```{r}
+
+knitr::include_graphics(here("images", "porjus_hydro.jpg"))
+
+```
+
+.center[[Porjus power plant dam in 1914](https://history.vattenfall.com/stories/from-hydro-power-to-solar-cells/the-pioneer-power-stations) - Vatenfall archives
+
+]]
+
+---
+class: inverse, center, middle
+
+# Electricity
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+
+# Electricity
+
+### Where to begin?
+
+.pull-left[
+
+Two pronged approach looking at:
+
+1. Local effects of electrification on labour in Sweden.
+
+2. Labour augmenting vs labour replacing technologies that came along with electricity.
+
+]
+
+.pull-right[
+
+```{r, out.width="50%"}
+include_graphics(here("images", "Electricity_map_sweden_1926.jpg"))
+```
+
+.center[[Map of electric grid in 1926](http://www.geni.org/globalenergy/library/national_energy_grid/sweden/swedishnationalelectricitygrid.shtml) - Global Electricity Network Institute
+
+]]
+
+]
+
+
+---
+
+# Electricity
+
+## Two Papers:
+
+### 1. Electrification as a shock to labour demand: worker skills and internal migration in Sweden
+
+### 2. Labour automation and augmentation as a result of technological change
+
+---
+
+# Electricity #1
+
+### Motivation for looking at micro-level data on workers
+
+There is work on Sweden already looking at [electricity and technology-skill complementary]() by Prado and Theorotidis. This focusses on manufacturing firms.
+
+There is also work examining [labour relations and workers' response to electrification]() in Sweden by Molinder, Karlsson and Enflo. This looks at the first major expansion of the electricity grid.
+
+```{r, out.width="50%"}
+knitr::include_graphics(here("images", "more_power_to_the_people.PNG"))
+```
+
+---
+
+# Electricity #1
+
+### What can I add?
+
+.pull-left[
+
+New detailed maps of electricity access:
+
+```{r}
+include_graphics(here("images", "electricity_map_Uppsala.PNG"))
+```
+
+[Map of electrification in Uppsala 1924]()
+
+]
+
+.pull-right[
+
+Information on extent of electricity provision:
+
+```{r}
+include_graphics(here("images", "Kristianstands_info_1.PNG"))
+```
+
+[Generation capacity by area in Kristianstad in 1926]()
+
+
+]
+
+
+---
+
+# Electricity #1
+
+.panelset[
+.panel[.panel-name[Question]
+
+.center[### How much did electrification contribute to the relatively high level of labour migration in Sweden during the first half of the 20th century?]
+
+]
+
+.panel[.panel-name[Data]
+
+```{r}
+data <- tibble(sources = c("Detailed electricity coverage maps", 
+                           "Information on amount/extent of provision", 
+                           "Occupation and labour location data"),
+               where_from = c("State official investigations into electrification by county",
+                              "State official investigations into electrification by county",
+                              "IPUMS census data"),
+               status = c("In posession, awaiting digitization",
+                          "In posession, awaiting translation",
+                          "Awaiting 1930 census from IPUMS"))
+
+kable(data, col.names = c("Sources", "Where from?", "Status"))
+
+```
+
+]
+
+.panel[.panel-name[Methods]
+
+```{r}
+methods <- c("Descrptive statistics",
+             "Lovely fun maps",
+             "Exogenous shock of early electrification might persist?") %>% as_tibble()
+
+methods %>% kable(col.names = "Methods")
+```
+
+
+]
+
+.panel[.panel-name[Sticking points]
+
+* Digitizing maps is taking lotsa time
+
+* 1930 census has unconfirmed release date
+
+]
+
+.panel[.panel-name[Next steps]
+
+* Do the work!
+
+]]
+
+---
+# Electricity #2
+
+### How has electrification augmented labour demand and how has it automated away labour?
+
+There is super interesting work on how industrialization (specifically iron mining) in Sweden impacted the workers who were displaced from artisanal production as mines became fewer in number and larger in size. [Poignant, van Maarseveen and Bengtsson]() find that workers who were displaced moved away to find employment in new occupations, and see lower wages to the magnitude of 10 percent as a result.
+
+In Electricity #1 I hope to show how labour moved to areas with electricity to seek new kinds of employment. In paper #2 I want to **quantify the new kinds of employment** and **measure the rate at which new jobs are created and old ones destroyed**.
+
+---
+# Electricity #2
+
+### What's the template?
+
+All the big boys write about this stuff:
+
+1. [Goldin and Katz (2008)]() explain the canonical model for labour augmenting technology
+
+1. [Acemoglu and Autor (2011)]() revise the model to account for polarization in the US labour market and introduce automation to the model
+
+1. [Autor, Salomons, Seegmiller (2022)](https://economics.mit.edu/files/21810) attempt to measure the kinds of technologies that replace labour and the kinds that boost labour productivity. They use occupational titles, occupation descriptions and census data. **This is the template**.
+
+---
+# Electricity #2
+
+.pull-left[
+
+### Augmentation vs Automation of work
+
+<blockquote>
+
+We hypothesize that new tasks emerge in occupations where new innovations complement their outputs (‘augmentation’) or market size expands, while conversely, employment contracts in occupations where innovations substitute for labour inputs (‘automation’) or market size contracts.
+
+</blockquote>
+
+-- [Autor, Salomons, Seegmiller (2021)](https://economics.mit.edu/files/21810)
+
+]
+.pull-right[
+
+### Measuring kinds of work
+
+```{r, fig.out = "50%"}
+include_graphics(here("images", "autor_kinds_of_work.PNG"))
+```
+
+
+]
+
+---
+
+# Electricity #2
+
+### Following methodology of [Autor, Salomons, Seegmiller (2021)](https://economics.mit.edu/files/21810)
+
+
+.pull-left[
+
+I need to have information on:
+
+1. Labour outputs, e.g. occupational titles
+
+1. Labour inputs, e.g. a description of what the worker does
+
+1. Types of new technology being brought to market, e.g. patents
+
+]
+
+
+
+.pull-right[
+
+```{r}
+autor_needs <- tibble(title = "Medical Technologist",
+       tasks = "Performs medical laboratory tests, procedures, analyses to provide data for diagnosis, treatment and prevention of disease",
+       tech = "Theranos blood testing machine that can do these things")
+
+autor_needs %>% kable(col.names = c("Title", "Task", "Tech"))
+```
+
+
+]
+
+---
+# Electricity #2
+### Methodology 
+
+Use natural language processing to compare the words used in the occupational titles and occupational descriptions to the corpus of patent data.
+
+More similar to titles -> complement their outputs (‘augmentation’)
+More similar to tasks -> substitute for labour inputs (‘automation’)
+
+```{r}
+include_graphics(here("images", "autor_methodology.PNG"))
+```
+
+---
+# Electricity #2
+
+### My data on occupational titles and descriptions over time:
+
+.pull-left[
+
+#### Riksvakanslistan
+
+* State vacancy lists produced weekly between 1915 and 1958
+
+* Records number of vacancies by occupational title and region
+
+* Uncommon occupations are listed in free text below table
+
+* As these occupations become more popular they move onto the grid
+
+* Specifies vacancies by rank in some occupations
+
+
+]
+
+.pull-right[
+
+```{r, out.width="40%"}
+include_graphics(here("images", "riksvakanslistan_21_09_1927.JPG"))
+
+```
+
+
+]
+---
+## Holdups!
+
+```{r}
+
+```
+
+---
+class: inverse, center, middle
+
+# Transportation technology
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+
+##
+
+
+Interesting economic questions is when the subway was built - did it enable people to commute to more jobs - different jobs - better jobs. To start we can ask - how did the subway allow people to work at different places.
+
+
+Mantalslängder has got name, occupational title, home address and work address. So what I need to do is to digitize these - extract the information into a computer readable form
+
+---
+# Methods
+
+A whole lot of the previous section depends on the ability to digitize and make machine readable old documents.
+
+Other folks may be interested in doing this too - 
+
+AWS Textract and AWS Comprehend are super useful tools for this purpose:
+
+Have a look at my example here, or at this talk by someone - recorded here - which shows how she used these tools to 
+
+I tried to make Melissa Dell's tool called [Layout Parser](https://layout-parser.github.io/) work last year but was unsuccessful. I think perhaps if I had done a computer science undergrad it might work well.
+
+I think it's better to just pay AWS to make it work - it's also a skill that is super useful in the workforce.
+---
+
+```{python, eval = F, echo = T}
+# use image strored in s3
+response = client.detect_document_text(Document = {
+  'S3Object': {
+    'Bucket': 'swedish-patent-data',
+    'Name': 'test-patents/SE2555_C1_1.jpeg'
+  }
+  
+})
+
+print(response)
+```
+
+
+
+
+
+
