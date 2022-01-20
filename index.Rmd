@@ -25,7 +25,7 @@ output:
 #   })
 ---
 
-class: center, inverse
+class: center, inverse, middle
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -575,21 +575,120 @@ The Stockholm city archive have mantalslängder that record:
 * Home address and 
 * workplace name
 
-
 ]
 
 .pull-right[
 
+Follow individuals over time! See their commutes pre- and post-metro construction/expansion
+
+```{r}
+include_graphics("images/metro_pic.jpg")
+```
 
 
 ]
 
 
-. So what I need to do is to digitize these - extract the information into a computer readable form.
+---
 
+# Transportation technology
+### Methods to assess job mobility / individual mobility
 
+1. Assign individuals to geocoded home locations based on address
+
+1. Geocode workplaces perhaps using workplace calendar
+
+1. If no matching, just track distance between work and home over time by occupation / social class.
+
+Can answer questions like:
+
+* Who was made worse off by dividing the city?
+
+* Who had better access to city amenities as a response to infrastructure?
 
 ---
+# Transportation technology
+### Methods to assess individual mobility
+
+If not possible to match over time, identifying clusters of commuting zones may be interestin, e.g.
+
+```{r, out.width="60%"}
+include_graphics("images/sweden_communting_boundaries.jpeg")
+```
+
+Map of Southern Sweden draw by commuting zones of 2021 rather than admin boundary. [Source: Data for Good from Meta](https://dataforgood.facebook.com/dfg/tools/commuting-zones)
+
+---
+# Transportation technology
+
+.panelset[
+.panel[.panel-name[Question]
+
+.center[### How did the introduction of new transportation technologies in Stockholm impact matching in the labour market, in conjunction with a redesign of the city?]
+
+]
+
+.panel[.panel-name[Data]
+
+```{r}
+data <- tibble(
+  sources = c(
+    "Individual records of occupation, home address and workplace name",
+    "Metro construction maps",
+    "Workplace addresses"
+  ),
+  where_from = c(
+    "Mantalslängder at SCA",
+    "Spårvägsmuseet",
+    "Calendar of workplaces / telephone books"
+  ),
+  status = c(
+    "Have to go and visit Stockholm to scan these",
+    "In posession, awaiting translation",
+    "???"
+  )
+)
+
+kable(data, col.names = c("Sources", "Where from?", "Status"))
+
+```
+
+]
+
+.panel[.panel-name[Methods]
+
+```{r}
+methods <- c("Geocoding addresses / detective work",
+             "Lovely fun maps",
+             "Fixed Effects estimator if observing individuals over time") %>% as_tibble()
+
+methods %>% kable(col.names = "Methods")
+```
+
+
+]
+
+.panel[.panel-name[Sticking points]
+
+* Digitizing individual records from big books is going to be tricky
+
+* Scanning the books with a proper book scanning machine is likely to give best quality scans and damage the books the least. Need to assess if this is possible.
+
+]
+
+.panel[.panel-name[Next steps]
+
+* Travel to Stockholm to get first impression of sources probably most NB.
+
+]]
+
+---
+# Urban design
+
+A mystery for the moment.
+
+---
+
 # Methods
 
 A whole lot of the previous section depends on the ability to digitize and make machine readable old documents.
@@ -598,7 +697,7 @@ Other folks may be interested in doing this too -
 
 AWS Textract and AWS Comprehend are super useful tools for this purpose:
 
-Have a look at my example here, or at this talk by someone - recorded here - which shows how she used these tools to 
+Have a look at [this paper by Amujala, Vossmeyer and Das](https://www.angelavossmeyer.com/uploads/5/6/6/2/56627489/northwestern_exeh_amujalavossmeyerdas_paper.pdf) which shows how they used these tools to digitize data from handwritten card index records.
 
 I tried to make Melissa Dell's tool called [Layout Parser](https://layout-parser.github.io/) work last year but was unsuccessful. I think perhaps if I had done a computer science undergrad it might work well.
 
@@ -619,7 +718,11 @@ print(response)
 ```
 
 
+---
 
+class: inverse, center, middle
+
+# Thank you
 
 
 
