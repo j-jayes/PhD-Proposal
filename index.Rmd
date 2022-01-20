@@ -53,7 +53,6 @@ library(tidyverse)
 library(here)
 library(xaringanthemer)
 
-xaringanExtra::use_progress_bar(color = "#EB821D", location = "top", height = "5px")
 xaringanExtra::use_panelset()
 ```
 
@@ -61,6 +60,10 @@ xaringanExtra::use_panelset()
 knitr::include_graphics("images/granny-duck-crop.jpg")
 ```
 
+```{r}
+xaringanExtra::use_progress_bar(color = "#EB821D", location = "top", height = "5px")
+
+```
 
 ---
 
