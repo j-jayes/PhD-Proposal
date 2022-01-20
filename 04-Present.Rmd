@@ -58,7 +58,7 @@ xaringanExtra::use_panelset()
 ```
 
 ```{r, out.width="70%"}
-knitr::include_graphics(here::here("images", "granny-duck-crop.jpg"))
+knitr::include_graphics("images/granny-duck-crop.jpg")
 ```
 
 
@@ -74,7 +74,7 @@ Artificial Intelligence, Automation, Augmented Reality and other buzzwords...
 .panel[.panel-name[Serious automation risk]
 
 ```{r, out.width="60%"}
-knitr::include_graphics(here("images", "exposure_risk.png"))
+knitr::include_graphics("images/exposure_risk.png")
 ```
 
 ]
@@ -82,7 +82,7 @@ knitr::include_graphics(here("images", "exposure_risk.png"))
 .panel[.panel-name[Meme off shoring risk]
 
 ```{r, out.width="60%"}
-knitr::include_graphics(here("images", "IMG_0394.PNG"))
+knitr::include_graphics("images/IMG_0394.PNG")
 ```
 
 ]]
@@ -97,7 +97,7 @@ Look to the past:
 How have people responded to technological change?? 
 
 * Swing riots
-* Luddites.
+* Luddites
 * Trade Adjustment Assistance in the US
 
 ]
@@ -105,7 +105,7 @@ How have people responded to technological change??
 .pull-right[
 
 ```{r, out.width="60%"}
-knitr::include_graphics(here("images", "luddites.jpg"))
+knitr::include_graphics("images/luddites.jpg")
 ```
 
 
@@ -128,7 +128,7 @@ knitr::include_graphics(here("images", "luddites.jpg"))
 
 ```{r}
 
-knitr::include_graphics(here("images", "porjus_hydro.jpg"))
+knitr::include_graphics("images/porjus_hydro.jpg")
 
 ```
 
@@ -138,6 +138,7 @@ knitr::include_graphics(here("images", "porjus_hydro.jpg"))
 
 ---
 class: inverse, center, middle
+name: electricity
 
 # Electricity
 
@@ -162,7 +163,7 @@ Two pronged approach looking at:
 .pull-right[
 
 ```{r, out.width="50%"}
-include_graphics(here("images", "Electricity_map_sweden_1926.jpg"))
+include_graphics("images/Electricity_map_sweden_1926.jpg")
 ```
 
 .center[[Map of electric grid in 1926](http://www.geni.org/globalenergy/library/national_energy_grid/sweden/swedishnationalelectricitygrid.shtml) - Global Electricity Network Institute
@@ -193,7 +194,7 @@ There is work on Sweden already looking at [electricity and technology-skill com
 There is also work examining [labour relations and workers' response to electrification]() in Sweden by Molinder, Karlsson and Enflo. This looks at the first major expansion of the electricity grid.
 
 ```{r, out.width="50%"}
-knitr::include_graphics(here("images", "more_power_to_the_people.PNG"))
+knitr::include_graphics("images/more_power_to_the_people.PNG")
 ```
 
 ---
@@ -207,7 +208,7 @@ knitr::include_graphics(here("images", "more_power_to_the_people.PNG"))
 New detailed maps of electricity access:
 
 ```{r}
-include_graphics(here("images", "electricity_map_Uppsala.PNG"))
+include_graphics("images/electricity_map_Uppsala.PNG")
 ```
 
 [Map of electrification in Uppsala 1924]()
@@ -219,7 +220,7 @@ include_graphics(here("images", "electricity_map_Uppsala.PNG"))
 Information on extent of electricity provision:
 
 ```{r}
-include_graphics(here("images", "Kristianstands_info_1.PNG"))
+include_graphics("images/Kristianstands_info_1.PNG")
 ```
 
 [Generation capacity by area in Kristianstad in 1926]()
@@ -328,7 +329,7 @@ We hypothesize that new tasks emerge in occupations where new innovations comple
 ### Measuring kinds of work
 
 ```{r, fig.out = "50%"}
-include_graphics(here("images", "autor_kinds_of_work.PNG"))
+include_graphics("images/autor_kinds_of_work.PNG")
 ```
 
 
@@ -340,6 +341,7 @@ include_graphics(here("images", "autor_kinds_of_work.PNG"))
 
 ### Following methodology of [Autor, Salomons, Seegmiller (2021)](https://economics.mit.edu/files/21810)
 
+<br>
 
 .pull-left[
 
@@ -377,8 +379,8 @@ Use natural language processing to compare the words used in the occupational ti
 More similar to titles -> complement their outputs (‘augmentation’)
 More similar to tasks -> substitute for labour inputs (‘automation’)
 
-```{r}
-include_graphics(here("images", "autor_methodology.PNG"))
+```{r, out.width="70%"}
+include_graphics("images/autor_methodology.PNG")
 ```
 
 ---
@@ -405,22 +407,123 @@ include_graphics(here("images", "autor_methodology.PNG"))
 
 .pull-right[
 
-```{r, out.width="40%"}
-include_graphics(here("images", "riksvakanslistan_21_09_1927.JPG"))
-
+```{r, out.width="80%"}
+include_graphics("images/riksvakanslistan_21_09_1927.JPG")
 ```
 
 
 ]
 ---
-## Holdups!
+# Electricity #2
+### My data on patents in Sweden:
+
+.pull-left[
+
+#### 2 Sources
+
+##### Swedish Patent and Registration Office
+
+* 5,960 patents including term electricity
+
+* Long time span from earliest adoption
+
+##### Google Patents Database
+
+* 12,600 patents concentrated in 1970s
+
+* Lovely website that let's you scrape it
+
+]
+
+.pull-right[
+
+```{r, out.width= "100%"}
+include_graphics("images/patent_counts_by_source.jpeg")
+```
+
+[Distribution of number of patents by source](https://github.com/j-jayes/swedish-patent-data)
+
+]
+
+---
+
+# Electricity #2
+
+```{r, out.width= "80%"}
+include_graphics("images/patent_title_words_prv.jpeg")
+```
+
+.center[
+[Term frequency in patent title from Swedish PRV Patent Database](https://github.com/j-jayes/swedish-patent-data)
+]
+
+---
+
+
+# Electricity #2
+
+.panelset[
+.panel[.panel-name[Question]
+
+.centre[### What was the rate of creation of creation of new kinds of jobs as a result of electrification, and to what extent was electrification a force for labour augmentation or labour automation?]
+
+]
+
+.panel[.panel-name[Data]
 
 ```{r}
+data <- tibble(sources = c("Labour outputs or occupational titles", 
+                           "Labour inputs or occupational descriptions", 
+                           "Swedish patent registration information"),
+               where_from = c("Riksvakanslistan",
+                              "Riksvakanslistan/HISCO documentation",
+                              "Swedish PRV / Google Patents"),
+               status = c("In LUB special collections - awaiting permission to scan",
+                          "In posession, awaiting translation",
+                          "Surmountable problems!!"))
+
+kable(data, col.names = c("Sources", "Where from?", "Status"))
 
 ```
 
+]
+
+.panel[.panel-name[Methods]
+
+```{r}
+methods <- c("Digitize and make machine readable Riksvakanslistan",
+             "Descrptive statistics",
+             "Natual Language Processing / Machine Learning",
+             "A little bit of maths") %>% as_tibble()
+
+methods %>% kable(col.names = "Methods")
+```
+
+
+]
+
+.panel[.panel-name[Sticking points]
+
+```{r}
+include_graphics("images/prv_patents_email_manual_download.PNG")
+```
+
+
+]
+
+.panel[.panel-name[Next steps]
+
+* Do the work!
+
+* Ask PRV if they can give me programmatic access to their server
+
+* Finish scraping Google Patents database
+
+]]
+
 ---
 class: inverse, center, middle
+name: transportation
 
 # Transportation technology
 
@@ -428,8 +531,22 @@ class: inverse, center, middle
 
 ---
 
-##
+# Transportation technology
 
+### How many jobs can you take the tube to in London?
+
+The Roy model (1951) says as a worker you should do the thing that you have the highest comparative advantage in.
+
+If you live on an fishing island, the cost of travel prevents you from becoming a banker.
+
+```{r, out.width="80%"}
+include_graphics("images/simple-sorting-3.PNG")
+```
+
+---
+# Transportation technology
+
+### How many jobs can you take the tube to in London?
 
 Interesting economic questions is when the subway was built - did it enable people to commute to more jobs - different jobs - better jobs. To start we can ask - how did the subway allow people to work at different places.
 
