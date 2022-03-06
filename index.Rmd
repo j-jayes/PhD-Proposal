@@ -62,7 +62,6 @@ knitr::include_graphics("images/granny-duck-crop.jpg")
 
 ```{r}
 xaringanExtra::use_progress_bar(color = "#EB821D", location = "top", height = "5px")
-
 ```
 
 ---
@@ -348,13 +347,15 @@ include_graphics("images/autor_kinds_of_work.PNG")
 
 .pull-left[
 
-I need to have information on:
+We want to compare the similarity of:
 
-1. Labour outputs, e.g. occupational titles
+1. Labour outputs, e.g. occupational titles,
 
 1. Labour inputs, e.g. a description of what the worker does
 
-1. Types of new technology being brought to market, e.g. patents
+and
+
+* Types of new technology being brought to market, e.g. patents
 
 ]
 
@@ -372,6 +373,91 @@ autor_needs %>% kable(col.names = c("Title", "Task", "Tech"))
 
 
 ]
+
+---
+
+# Electricity #2 copy
+
+### Following methodology of [Autor, Salomons, Seegmiller (2021)](https://economics.mit.edu/files/21810)
+
+<br>
+
+.pull-left[
+
+We want to compare the similarity of:
+
+1. Labour outputs, e.g. occupational titles,
+
+1. Labour inputs, e.g. a description of what the worker does
+
+and
+
+* Types of new technology being brought to market, e.g. patents
+
+]
+
+
+
+.pull-right[
+
+```{r}
+autor_needs <- tibble(title = "Medical Technologist",
+       tasks = "Performs medical laboratory tests, procedures, analyses to provide data for diagnosis, treatment and prevention of disease",
+       tech = "Theranos blood testing machine that can do these things")
+
+autor_needs %>% kable(col.names = c("Title", "Task", "Tech"))
+
+icons <- tibble(title = "figures/icons/titles.svg",
+                tasks = "figures/icons/descriptions.svg",
+                tech = "figures/icons/patents.svg")
+
+autor_needs <- autor_needs %>% 
+  bind_rows(icons)
+
+autor_needs %>%
+  gt() %>%
+  tab_header(title = "Example of Autor, Salomons and Seegmiller comparison") %>%
+  tab_style(
+    style = cell_borders(sides = "l", color = "grey20", style = "solid", weight = "1px"),
+    locations = cells_body(
+      columns = everything(),
+      rows = everything()
+    )
+  ) %>%
+  tab_style(
+    style = cell_text(align = "center"),
+    locations = cells_body(
+      columns = everything(),
+      rows = 2
+    )
+  ) %>%
+  cols_label(
+    title = md("**Title**"),
+    tasks = md("**Task**"),
+    tech = md("**Tech**")
+  ) %>%
+  text_transform(
+    locations = cells_body(
+      columns = c(title, tasks, tech),
+      rows = 2
+    ),
+    fn = function(x) {
+      local_image(
+        filename = paste0(x),
+        height = as.numeric(75)
+      )
+    }
+  ) %>% 
+    tab_style(
+    style = cell_fill(color = "#D3D3D3", alpha = .7),
+    locations = cells_column_labels(columns = everything())
+  )
+
+```
+
+
+]
+
 
 ---
 # Electricity #2
