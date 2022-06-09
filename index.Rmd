@@ -1,8 +1,8 @@
 ---
-title: "Idea seminar"
+title: "Presentation of draft research plan"
 subtitle: "Technological change and labour market response in Sweden"
 author: "Jonathan Jayes"
-date: "Lund University | [EHEH001](https://interludeone.com/) `r format(Sys.time(), '%d %B, %Y')`"
+date: "Lund University | `r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     seal: true
@@ -13,20 +13,8 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       slideNumberFormat: "%current%"
-# This section will knit your Rmarkdown file to the root directory to easily deploy to Github Pages
-# knit: (function(input, ...) {
-#     rmarkdown::render(
-#       input,
-#       output_file = paste0(
-#         here::here(), '/index.html'
-#       ),
-#       envir = globalenv()
-#     )
-#   })
+
 ---
-
-class: center, inverse, middle
-
 
 ```{r, echo=F, message=F, warning=F}
 
@@ -56,36 +44,46 @@ library(xaringanthemer)
 xaringanExtra::use_panelset()
 ```
 
-```{r, out.width="70%"}
-knitr::include_graphics("images/granny-duck-crop.jpg")
-```
-
 ```{r}
 xaringanExtra::use_progress_bar(color = "#EB821D", location = "top", height = "5px")
 ```
 
----
 
-# Trendy topic
+# Trendy topic: The future of work!
 
-### The future of work!
-
-Artificial Intelligence, Automation, Augmented Reality and other buzzwords...
-
-.panelset[
-.panel[.panel-name[Serious automation risk]
+Automation Risk 
 
 ```{r, out.width="60%"}
 knitr::include_graphics("images/exposure_risk.png")
 ```
 
-]
+---
 
-.panel[.panel-name[Meme off shoring risk]
+# Trendy topic: Labour market in Sweden
 
-```{r, out.width="60%"}
-knitr::include_graphics("images/IMG_0394.PNG")
+```{r}
+library(gt)
+df <- read_rds("literature/svensson_2021.rds")
+
+df %>% 
+  pivot_wider(names_from = year) %>%
+  gt() %>% 
+  data_color(
+    columns = `1905`:`1950`,
+    colors = scales::col_numeric(
+      # custom defined values - notice that order matters!
+      palette = c("#ffffff", "#f2fbd2", "#c9ecb4", "#93d3ab", "#35b0ab"),
+      domain = NULL
+    )
+  ) %>% 
+  cols_label(title = "") %>% 
+   tab_header(
+    title = md("**Evolution of professional composition**"),
+    subtitle = "Top 100 incomes per year in Malmö"
+  ) %>% 
+  tab_source_note("Data: Anton Svennson 2022 - strategic sample of Malmö")
 ```
+
 
 ]]
 
@@ -118,11 +116,9 @@ knitr::include_graphics("images/luddites.jpg")
 
 .pull-left[
 
-1. Electricity (two papers!)
+1. Electricity (three papers!)
 
 2. Transportation technology
-
-3. Urban design
 
 ]
 
@@ -179,15 +175,153 @@ include_graphics("images/Electricity_map_sweden_1926.jpg")
 
 # Electricity
 
-## Two Papers:
+## Three Papers:
 
-### 1. Electrification as a shock to labour demand: worker skills and internal migration in Sweden
+### 1. How does electrification shift workers out of agriculture?
 
-### 2. Labour automation and augmentation as a result of technological change
+### 2. Electrification as a shock to labour demand: worker skills and internal migration in Sweden
+
+### 3. Labour automation and augmentation as a result of technological change
+
+---
+# Electricity 1
+
+### Labour from agric. to new indutry
+
+```{r}
+df <- readxl::read_excel("slide_data/employment_by_industry_Sweden_new.xls", skip = 5)
+
+library(ggiraph)
+
+g <- df %>%
+  mutate(Year = as.numeric(Year)) %>%
+  pivot_longer(-Year) %>%
+  filter(!name %in% c("Total aggregate economy", "Total private sector")) %>%
+  mutate(tooltip = str_c("Number of employees ", scales::number(value, accuracy = 1))) %>%
+  ggplot(aes(Year, value, fill = name, tooltip = tooltip)) +
+  geom_tile_interactive(position = "fill") +
+  scale_fill_brewer(palette = "Paired") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  theme(legend.position = "bottom") +
+  guides(fill = guide_legend(nrow = 4, byrow = TRUE)) +
+  labs(
+    caption = "Source: Edvinsson, R. Number of employees in eight types of activities in Sweden 1850-2000\nVia Historia.se",
+    fill = NULL,
+    y = "Employment composition",
+    title = "Employment by sector in Sweden",
+    subtitle = "1850-2000"
+  )
+
+ggiraph(ggobj = g)
+
+```
+
+.center[Number of employees in eight types of activities in Sweden 1850-2000 [Edvinsson](http://www.historicalstatistics.org/)]
+
 
 ---
 
-# Electricity #1
+# Electricity 1
+
+.pull-left[
+
+### Rapid expansion of general purpose technology
+
+<blockquote>
+
+Between 1915 and 1920 the proportion of the country's arable land belonging to farms with electricity increased from 5 to almost 40 per cent
+
+</blockquote>
+
+]
+
+.pull-right[
+
+
+```{r, out.width="80%"}
+include_graphics("slides/vattenfall_consumption.jpg")
+```
+
+.center[[Vattenfall archive](https://history.vattenfall.com/stories/the-revolution-of-electricity/how-electricity-conquered-the-countryside)]
+
+]
+
+---
+class: inverse, center, middle
+
+## How does electrification shift workers out of agriculture?
+
+---
+# Electricity 1
+
+Simply measure number of workers in different occupations, electricity and agricultural output at parish level.
+
+.pull-left[
+
+```{r, out.width="100%"}
+include_graphics("slides/agric_data.PNG")
+```
+]
+
+.pull-right[
+
+
+```{r, out.width="100%"}
+include_graphics("slides/Horses_per_parish.PNG")
+```
+
+]
+
+---
+# Electricity 1
+
+.panelset[
+.panel[.panel-name[Question]
+
+.center[### How does electrification shift workers out of agriculture?]
+
+]
+
+.panel[.panel-name[Data]
+
+```{r}
+data <- tibble(sources = c("Detailed electricity coverage maps", 
+                           "Agricultural output and employment data"),
+               where_from = c("State official investigations into electrification by county",
+                              "SCB"),
+               status = c("In posession, awaiting digitization",
+                          "In posession, awaiting translation"))
+
+kable(data, col.names = c("Sources", "Where from?", "Status"))
+
+```
+
+]
+
+.panel[.panel-name[Methods]
+
+* Diff in diff between parishes that had access to electricity early by virtue of grid connection.
+
+]
+
+.panel[.panel-name[Sticking points]
+
+* Digitizing maps is taking lotsa time
+
+]
+
+.panel[.panel-name[Next steps]
+
+* Do the work!
+
+]]
+
+
+
+
+---
+
+# Electricity #2
 
 ### Motivation for looking at micro-level data on workers
 
@@ -201,7 +335,7 @@ knitr::include_graphics("images/more_power_to_the_people.PNG")
 
 ---
 
-# Electricity #1
+# Electricity #2
 
 ### What can I add?
 
@@ -227,13 +361,10 @@ include_graphics("images/Kristianstands_info_1.PNG")
 
 [Generation capacity by area in Kristianstad in 1926]()
 
-
 ]
-
-
 ---
 
-# Electricity #1
+# Electricity #2
 
 .panelset[
 .panel[.panel-name[Question]
@@ -253,7 +384,7 @@ data <- tibble(sources = c("Detailed electricity coverage maps",
                               "IPUMS census data"),
                status = c("In posession, awaiting digitization",
                           "In posession, awaiting translation",
-                          "Awaiting 1930 census from IPUMS"))
+                          "Awaiting 1930 census from Riksarkivet"))
 
 kable(data, col.names = c("Sources", "Where from?", "Status"))
 
@@ -278,7 +409,7 @@ methods %>% kable(col.names = "Methods")
 
 * Digitizing maps is taking lotsa time
 
-* 1930 census has unconfirmed release date
+* 1930 census is not complete, but rather has 30% coverage, primarily in areas that have high unemployment today.
 
 ]
 
@@ -289,16 +420,14 @@ methods %>% kable(col.names = "Methods")
 ]]
 
 ---
-# Electricity #2
+# Electricity #3
 
 ### How has electrification augmented labour demand and how has it automated away labour?
 
-There is super interesting work on how industrialization (specifically iron mining) in Sweden impacted the workers who were displaced from artisanal production as mines became fewer in number and larger in size. [Poignant, van Maarseveen and Bengtsson]() find that workers who were displaced moved away to find employment in new occupations, and see lower wages to the magnitude of 10 percent as a result.
-
-In Electricity #1 I hope to show how labour moved to areas with electricity to seek new kinds of employment. In paper #2 I want to **quantify the new kinds of employment** and **measure the rate at which new jobs are created and old ones destroyed**.
+In Electricity #2 I hope to show how labour moved to areas with electricity to seek new kinds of employment. In paper #2 I want to **quantify the new kinds of employment** and **measure the rate at which new jobs are created and old ones destroyed**.
 
 ---
-# Electricity #2
+# Electricity #3
 
 ### What's the template?
 
@@ -311,7 +440,7 @@ All the big boys write about this stuff:
 1. [Autor, Salomons, Seegmiller (2022)](https://economics.mit.edu/files/21810) attempt to measure the kinds of technologies that replace labour and the kinds that boost labour productivity. They use occupational titles, occupation descriptions and census data. **This is the template**.
 
 ---
-# Electricity #2
+# Electricity #3
 
 .pull-left[
 
@@ -339,44 +468,7 @@ include_graphics("images/autor_kinds_of_work.PNG")
 
 ---
 
-# Electricity #2
-
-### Following methodology of [Autor, Salomons, Seegmiller (2021)](https://economics.mit.edu/files/21810)
-
-<br>
-
-.pull-left[
-
-We want to compare the similarity of:
-
-1. Labour outputs, e.g. occupational titles,
-
-1. Labour inputs, e.g. a description of what the worker does
-
-and
-
-* Types of new technology being brought to market, e.g. patents
-
-]
-
-
-
-.pull-right[
-
-```{r}
-autor_needs <- tibble(title = "Medical Technologist",
-       tasks = "Performs medical laboratory tests, procedures, analyses to provide data for diagnosis, treatment and prevention of disease",
-       tech = "Theranos blood testing machine that can do these things")
-
-autor_needs %>% kable(col.names = c("Title", "Task", "Tech"))
-```
-
-
-]
-
----
-
-# Electricity #2 copy
+# Electricity #3
 
 ### Following methodology of [Autor, Salomons, Seegmiller (2021)](https://economics.mit.edu/files/21810)
 
@@ -460,7 +552,7 @@ autor_needs %>%
 
 
 ---
-# Electricity #2
+# Electricity #3
 ### Methodology 
 
 Use natural language processing to compare the words used in the occupational titles and occupational descriptions to the corpus of patent data.
@@ -473,7 +565,7 @@ include_graphics("images/autor_methodology.PNG")
 ```
 
 ---
-# Electricity #2
+# Electricity #3
 
 ### My data on occupational titles and descriptions over time:
 
@@ -503,7 +595,7 @@ include_graphics("images/riksvakanslistan_21_09_1927.JPG")
 
 ]
 ---
-# Electricity #2
+# Electricity #3
 ### My data on patents in Sweden:
 
 .pull-left[
@@ -536,7 +628,7 @@ include_graphics("images/patent_counts_by_source.jpeg")
 
 ---
 
-# Electricity #2
+# Electricity #3
 
 ```{r, out.width= "80%"}
 include_graphics("images/patent_title_words_prv.jpeg")
@@ -549,7 +641,7 @@ include_graphics("images/patent_title_words_prv.jpeg")
 ---
 
 
-# Electricity #2
+# Electricity #3
 
 .panelset[
 .panel[.panel-name[Question]
@@ -701,7 +793,7 @@ Can answer questions like:
 # Transportation technology
 ### Methods to assess individual mobility
 
-If not possible to match over time, identifying clusters of commuting zones may be interestin, e.g.
+If not possible to match over time, identifying clusters of commuting zones may be interesting, e.g.
 
 ```{r, out.width="60%"}
 include_graphics("images/sweden_communting_boundaries.jpeg")
@@ -772,42 +864,6 @@ methods %>% kable(col.names = "Methods")
 * Travel to Stockholm to get first impression of sources probably most NB.
 
 ]]
-
----
-# Urban design
-
-A mystery for the moment.
-
----
-
-# Methods
-
-A whole lot of the previous section depends on the ability to digitize and make machine readable old documents.
-
-Other folks may be interested in doing this too - 
-
-AWS Textract and AWS Comprehend are super useful tools for this purpose:
-
-Have a look at [this paper by Amujala, Vossmeyer and Das](https://www.angelavossmeyer.com/uploads/5/6/6/2/56627489/northwestern_exeh_amujalavossmeyerdas_paper.pdf) which shows how they used these tools to digitize data from handwritten card index records.
-
-I tried to make Melissa Dell's tool called [Layout Parser](https://layout-parser.github.io/) work last year but was unsuccessful. I think perhaps if I had done a computer science undergrad it might work well.
-
-I think it's better to just pay AWS to make it work - it's also a skill that is super useful in the workforce.
----
-
-```{python, eval = F, echo = T}
-# use image strored in s3
-response = client.detect_document_text(Document = {
-  'S3Object': {
-    'Bucket': 'swedish-patent-data',
-    'Name': 'test-patents/SE2555_C1_1.jpeg'
-  }
-  
-})
-
-print(response)
-```
-
 
 ---
 
