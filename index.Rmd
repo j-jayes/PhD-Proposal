@@ -267,7 +267,7 @@ include_graphics("slides/agric_data.PNG")
 
 
 ```{r, out.width="100%"}
-include_graphics("slides/Horses_per_parish.PNG")
+include_graphics("slides/Horses_per_parish.png")
 ```
 
 ]
