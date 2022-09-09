@@ -1,5 +1,5 @@
 ---
-title: "Like moths to a flame:"
+title: "Like moths to a flame"
 subtitle: "Electrification and its labour market effects in 20th c Sweden."
 author: "Jonathan Jayes"
 date: "Lund University | `r format(Sys.time(), '%d %B, %Y')`"
@@ -394,12 +394,12 @@ knitr::include_graphics("slides/agglomoration_effects.png")
 
 
 ---
-
+# Paper 2
 
 .panelset[
 .panel[.panel-name[Question]
 
-.center[### How much did electrification contribute to the relatively high level of labour migration in Sweden during the first half of the 20th century?]
+.center[### What kinds of workers were made better off by electrification?]
 
 ]
 
@@ -414,7 +414,7 @@ data <- tibble(sources = c("Detailed electricity coverage maps",
                               "IPUMS census data"),
                status = c("In posession, awaiting digitization",
                           "In posession, awaiting translation",
-                          "Awaiting 1930 census from Riksarkivet"))
+                          "Examining 1930 census for coverage issues"))
 
 kable(data, col.names = c("Sources", "Where from?", "Status"))
 
@@ -425,9 +425,9 @@ kable(data, col.names = c("Sources", "Where from?", "Status"))
 .panel[.panel-name[Methods]
 
 ```{r}
-methods <- c("Descrptive statistics",
+methods <- c("Logistic regression",
              "Lovely fun maps",
-             "Exogenous shock of early electrification might persist?") %>% as_tibble()
+             "Exogenous shock of early electrification might persist") %>% as_tibble()
 
 methods %>% kable(col.names = "Methods")
 ```
@@ -490,7 +490,7 @@ data <- tibble(sources = c("Detailed electricity coverage maps",
                               "IPUMS census data"),
                status = c("In posession, awaiting digitization",
                           "In posession, awaiting translation",
-                          "Awaiting 1930 census from Riksarkivet"))
+                          "Examining 1930 census for coverage issues"))
 
 kable(data, col.names = c("Sources", "Where from?", "Status"))
 
@@ -501,9 +501,8 @@ kable(data, col.names = c("Sources", "Where from?", "Status"))
 .panel[.panel-name[Methods]
 
 ```{r}
-methods <- c("Descrptive statistics",
-             "Lovely fun maps",
-             "Exogenous shock of early electrification might persist?") %>% as_tibble()
+methods <- c("Counterfactual construction of mover and stayer parishes",
+             "Marginal treatment effect analysis") %>% as_tibble()
 
 methods %>% kable(col.names = "Methods")
 ```
